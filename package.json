@@ -9,6 +9,9 @@
   "author": "Stanimira Vlaeva <stanimira.vlaeva@gmail.com>",
   "license": "ISC",
   "bin": {
-      "core-adoption-report": "./index.js"
+    "core-adoption-report": "./index.js"
+  },
+  "dependencies": {
+    "@clr/eslint-plugin-clarity-adoption": "^5.0.0-next.0"
   }
 }
