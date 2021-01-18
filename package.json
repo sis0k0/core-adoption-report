@@ -1,0 +1,14 @@
+{
+  "name": "core-adoption-report",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stanimira Vlaeva <stanimira.vlaeva@gmail.com>",
+  "license": "ISC",
+  "bin": {
+      "core-adoption-report": "./index.js"
+  }
+}
