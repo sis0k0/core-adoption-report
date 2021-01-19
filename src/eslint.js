@@ -17,10 +17,12 @@ function verifyFileContent(fileContent, fileName) {
     const messages = linter.verify(fileContent, {
         parser: '@clr/eslint-plugin-clarity-adoption/html-parser',
         rules: definedRules,
-    }, fileName)
-
-    messages.forEach(m => m.fileName = fileName);
-
+    });
+    
+    messages.forEach(m => {
+        m.fileName = fileName;
+        m.component = m.ruleId.split('-').pop();
+    });
 
     return messages;
 }

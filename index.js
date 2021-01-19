@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+const ejs = require('ejs');
+const { writeFile } = require('fs').promises;
+const { resolve } = require('path');
+
 const { verifyFileContent } = require('./src/eslint');
 const { getFilesList, readFiles } = require('./src/fs-helper');
 
@@ -12,14 +16,26 @@ const { getFilesList, readFiles } = require('./src/fs-helper');
         .map((current) => verifyFileContent(current.content, current.name))
         .flat();
     
-    const linterMessagesGroupedByRule = linterMessages.reduce((all, current) => {
-        const { ruleId } = current;
-        all[ruleId] = all[ruleId] || [];
-        all[ruleId].push(current);
+    const linterMessagesGroupedByComponent = linterMessages.reduce((all, current) => {
+        const { component } = current;
+        all[component] = all[component] || [];
+        all[component].push(current);
 
         return all;
     }, {});
 
-    console.log(linterMessagesGroupedByRule);
+    ejs.renderFile(
+        resolve(__dirname, 'src/template.html.ejs'),
+        { messages: linterMessagesGroupedByComponent },
+        { filename: 'report' },
+        async function(error, content) {
+            if (error) {
+                throw error;
+            }
 
+            const filePath = 'report.html';
+            await writeFile(filePath, content);
+            console.info(`Report generated at ${filePath}`);
+        }
+    );
 })();
