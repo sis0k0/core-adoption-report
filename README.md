@@ -5,7 +5,7 @@
 Execute the following command in your project:
 
 ```
-npx core-adoption-report
+npx github:sis0k0/core-adoption-report
 ```
 
 The generated report will be saved in `report.html`.
