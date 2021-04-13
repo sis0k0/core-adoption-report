@@ -2,17 +2,25 @@
   "name": "core-adoption-report",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Stanimira Vlaeva <stanimira.vlaeva@gmail.com>",
   "license": "ISC",
   "bin": {
-    "core-adoption-report": "./index.js"
+    "core-adoption-report": "./dist/index.js"
   },
   "dependencies": {
-    "@clr/eslint-plugin-clarity-adoption": "^5.0.0-next.0",
-    "ejs": "^3.1.5"
+    "@clr/eslint-plugin-clarity-adoption": "^5.1.1",
+    "ejs": "^3.1.6"
+  },
+  "devDependencies": {
+    "@types/eslint": "^7.2.9",
+    "@types/node": "^14.14.37",
+    "typescript": "^4.2.4"
   }
 }

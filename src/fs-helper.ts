@@ -1,7 +1,9 @@
-const { resolve } = require('path');
-const { readdir, readFile } = require('fs').promises;
 
-async function readFiles(files) {
+import { resolve } from 'path';
+import { promises as fs } from 'fs';
+const { readFile, readdir } = fs;
+
+export async function readFiles(files: string[]): Promise<Array<{ name: string, content: string }>> {
     const promises = files.map(file => readFile(file, { encoding: 'utf-8' }))
     const contents = await Promise.all(promises);
     const nameContentMap = contents.map((content, index) => ({
@@ -12,10 +14,10 @@ async function readFiles(files) {
     return nameContentMap;
 }
 
-async function getFilesList(directory, ext = '') {
-    const files = [];
+export async function getFilesList(directory: string, ext = ''): Promise<string[]> {
+    const files: string[] = [];
 
-    const filesIterator = getFilesGenerator(directory);
+    const filesIterator = getFilesGenerator(directory) as string[];
     for await (const file of filesIterator) {
         if (file.endsWith(ext)) {
             files.push(file);
@@ -25,7 +27,7 @@ async function getFilesList(directory, ext = '') {
     return files;
 }
 
-async function* getFilesGenerator(directory) {
+async function* getFilesGenerator(directory: string) {
     const directoryEntries = await readdir(directory, { withFileTypes: true });
 
     for (const entry of directoryEntries) {
@@ -36,9 +38,4 @@ async function* getFilesGenerator(directory) {
             yield file;
         }
     }
-}
-
-module.exports = {
-    getFilesList,
-    readFiles
 }
