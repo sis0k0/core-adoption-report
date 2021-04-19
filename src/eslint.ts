@@ -1,4 +1,5 @@
 import { Linter } from "eslint";
+import { relative } from 'path';
 import { parseForESLint } from "@clr/eslint-plugin-clarity-adoption/html-parser";
 
 export interface ExtendedMessage extends Linter.LintMessage {
@@ -29,7 +30,7 @@ export function verifyFileContent(fileContent: string, fileName: string): Array<
     });
     
     messages.forEach(m => {
-        m.fileName = fileName;
+        m.fileName = relative(process.cwd(), fileName);
         m.component = m?.ruleId?.split('-').pop();
     });
 

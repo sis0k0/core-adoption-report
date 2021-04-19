@@ -1,0 +1,16 @@
+<clr-modal [(clrModalOpen)]="openModal">
+  <h3 class="modal-title">I have a nice title</h3>
+  <div class="modal-body">
+    <p>But not much to say...</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="openModal = false">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="openModal = false">Ok</button>
+  </div>
+
+  <ul cds-list></ul>
+  <ul cds-list="unstyled"></ul>
+  <ul class="compact" cds-list></ul>
+  <ul class="random compact" cds-list="unstyled"></ul>
+  <ul class="compact" cds-list="unstyled"></ul>
+</clr-modal>

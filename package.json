@@ -7,7 +7,8 @@
     "build": "tsc && cpy src/template.html.ejs dist/src/",
     "watch": "tsc -w",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand --coverage false"
   },
   "author": "Stanimira Vlaeva <stanimira.vlaeva@gmail.com>",
   "license": "ISC",
@@ -19,12 +20,39 @@
     "ejs": "^3.1.6"
   },
   "devDependencies": {
+    "@types/ejs": "^3.0.6",
     "@types/eslint": "^7.2.9",
+    "@types/jest": "^26.0.22",
     "@types/node": "^14.14.37",
     "cpy-cli": "^3.1.1",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
     "typescript": "^4.2.4"
   },
   "files": [
     "./dist"
-  ]
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "ts"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/src/**"
+    ],
+    "coverageDirectory": "<rootDir>/reports/coverage",
+    "transform": {
+      "\\.(ts)$": "ts-jest"
+    },
+    "testRegex": "/tests/.*\\.spec\\.ts$",
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.spec.json"
+      }
+    },
+    "testMatch": null
+  }
 }

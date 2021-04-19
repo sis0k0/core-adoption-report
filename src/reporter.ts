@@ -24,18 +24,13 @@ export async function generateReport(directory: string = '.') {
         return all;
     }, {});
 
-    ejs.renderFile(
+    const content = await ejs.renderFile(
         resolve(__dirname, 'template.html.ejs'),
         { messages: linterMessagesGroupedByComponent },
-        { filename: 'report' },
-        async function(error: Error, content: string) {
-            if (error) {
-                throw error;
-            }
-
-            const filePath = 'report.html';
-            await writeFile(filePath, content);
-            console.info(`Report generated at ${filePath}`);
-        }
+        { filename: 'report', async: true },
     );
+
+    const filePath = 'report.html';
+    await writeFile(filePath, content);
+    console.info(`Report generated at ${filePath}`);
 }

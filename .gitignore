@@ -1,5 +1,7 @@
 node_modules/
 dist/
+reports/
+report.html
 *.js
 *.js.map
 *.d.ts

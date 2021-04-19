@@ -12,20 +12,22 @@
 </head>
 <body>
     <h1>Clarity Adoption Report</h1>
-
-    <% for (const [ component, errors ] of Object.entries(messages)) { %>
-        <h2><%= component[0].toUpperCase() + component.substring(1) %></h2>
-        <div>
-            <p>Please follow the <a href="http://clarity.design/">instructions for adopting the Clarity Core <%= component %> component.</a></p>
-            <p>You are using Clarity Angular <span class="monospace"><%= component %>s</span> in the following files:</p>
-
-            <ul>
-            <% errors.forEach(error => { %>
-                <li><span class="monospace"><%= error.fileName %></span> on line <%= error.line %> at column <%= error.column %></li>
-            <% }); %>
-            </ul>
-
-        </div>
-    <% } %>
+<% 
+    const entries = messages && Object.entries(messages);
+    if (entries && !entries.length) { %>
+    <p>No Clarity Angular components were found!</p>
+<% } else {
+        for (const [ component, errors ] of entries) { 
+%>
+    <h2><%= component[0].toUpperCase() + component.substring(1) %></h2>
+    <div>
+        <p>Please follow the <a href="http://clarity.design/">instructions for adopting the Clarity Core <%= component %> component.</a></p>
+        <p>You are using Clarity Angular <span class="monospace"><%= component %>s</span> in the following files:</p>
+        <ul><% errors.forEach(error => { %>
+            <li><span class="monospace"><%= error.fileName %></span> on line <%= error.line %> at column <%= error.column %></li>
+<% }); %>
+        </ul>
+    </div>
+<% }} %>
 </body>
 </html>
